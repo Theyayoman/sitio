@@ -6,6 +6,13 @@
     $user = "postgres"; // Usuario de la base de datos
     $password = "vzkFAnZtJDAaHBDtQgzLcNNFdoAWWvtC"; // Contraseña del usuario
     
+	$conn_string = "host=$host port=$port dbname=$dbname user=$user password=$password";
+
+	$dbconn = pg_connect($conn_string);
+	if (!$dbconn) {
+		die("Error de conexión: " . pg_last_error());
+	}
+
 	// Procesar formulario de acuerdo a la acción
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? ''; // Acción específica: agregar, editar, eliminar
