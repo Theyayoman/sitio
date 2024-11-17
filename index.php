@@ -99,11 +99,11 @@ potenciar el crecimiento de las empresas.</p>
 
 		<?php
     // Configuración de la conexión
-    $host = "tuservidor.railway.app"; // Cambiar por el host proporcionado por Railway
-    $port = "5432"; // Puerto por defecto de PostgreSQL
-    $dbname = "tu_basedatos"; // Nombre de la base de datos
-    $user = "tu_usuario"; // Usuario de la base de datos
-    $password = "tu_contraseña"; // Contraseña del usuario
+    $host = "autorack.proxy.rlwy.net"; // Cambiar por el host proporcionado por Railway
+    $port = "40315"; // Puerto por defecto de PostgreSQL
+    $dbname = "railway"; // Nombre de la base de datos
+    $user = "postgres"; // Usuario de la base de datos
+    $password = "vzkFAnZtJDAaHBDtQgzLcNNFdoAWWvtC"; // Contraseña del usuario
 
     // Construir la cadena de conexión
     $conn_string = "host=$host port=$port dbname=$dbname user=$user password=$password";
