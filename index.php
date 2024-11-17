@@ -24,17 +24,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         if ($action === 'add') {
             // Agregar un registro
-            $query = "INSERT INTO citas (name, email, message) VALUES ($1, $2, $3)";
+            $query = "INSERT INTO cita (name, email, message) VALUES ($1, $2, $3)";
             $result = pg_query_params($dbconn, $query, [$name, $email, $message]);
             $mensaje = "Registro agregado exitosamente.";
         } elseif ($action === 'edit' && $id) {
             // Editar un registro
-            $query = "UPDATE citas SET name = $1, email = $2, message = $3 WHERE id = $4";
+            $query = "UPDATE cita SET name = $1, email = $2, message = $3 WHERE id = $4";
             $result = pg_query_params($dbconn, $query, [$name, $email, $message, $id]);
             $mensaje = "Registro actualizado exitosamente.";
         } elseif ($action === 'delete' && $id) {
             // Eliminar un registro
-            $query = "DELETE FROM citas WHERE id = $1";
+            $query = "DELETE FROM cita WHERE id = $1";
             $result = pg_query_params($dbconn, $query, [$id]);
             $mensaje = "Registro eliminado exitosamente.";
         }
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Consultar todos los registros para mostrar
 $registros = [];
-$query = "SELECT * FROM citas ORDER BY id";
+$query = "SELECT * FROM cita ORDER BY id";
 $result = pg_query($dbconn, $query);
 while ($row = pg_fetch_assoc($result)) {
     $registros[] = $row;
