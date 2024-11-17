@@ -5,7 +5,46 @@
     $dbname = "railway"; // Nombre de la base de datos
     $user = "postgres"; // Usuario de la base de datos
     $password = "vzkFAnZtJDAaHBDtQgzLcNNFdoAWWvtC"; // Contraseña del usuario
-    ?>
+    
+	// Procesar formulario de acuerdo a la acción
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $action = $_POST['action'] ?? ''; // Acción específica: agregar, editar, eliminar
+    $id = $_POST['id'] ?? null; // Para editar o eliminar
+    $name = $_POST['name'] ?? null;
+    $email = $_POST['email'] ?? null;
+    $message = $_POST['message'] ?? null;
+
+    try {
+        if ($action === 'add') {
+            // Agregar un registro
+            $query = "INSERT INTO tabla_ejemplo (name, email, message) VALUES ($1, $2, $3)";
+            $result = pg_query_params($dbconn, $query, [$name, $email, $message]);
+            $mensaje = "Registro agregado exitosamente.";
+        } elseif ($action === 'edit' && $id) {
+            // Editar un registro
+            $query = "UPDATE tabla_ejemplo SET name = $1, email = $2, message = $3 WHERE id = $4";
+            $result = pg_query_params($dbconn, $query, [$name, $email, $message, $id]);
+            $mensaje = "Registro actualizado exitosamente.";
+        } elseif ($action === 'delete' && $id) {
+            // Eliminar un registro
+            $query = "DELETE FROM tabla_ejemplo WHERE id = $1";
+            $result = pg_query_params($dbconn, $query, [$id]);
+            $mensaje = "Registro eliminado exitosamente.";
+        }
+    } catch (Exception $e) {
+        $mensaje = "Error: " . $e->getMessage();
+    }
+}
+
+// Consultar todos los registros para mostrar
+$registros = [];
+$query = "SELECT * FROM tabla_ejemplo ORDER BY id";
+$result = pg_query($dbconn, $query);
+while ($row = pg_fetch_assoc($result)) {
+    $registros[] = $row;
+}
+
+	?>
 <!DOCTYPE HTML>
 <html>
 	<head>
