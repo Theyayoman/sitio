@@ -108,8 +108,8 @@ potenciar el crecimiento de las empresas.</p>
         <!-- Formulario -->
         <section class="col-6 col-12-narrower">
             <h2>Gestión de registros</h2>
-            <?php if ($mensaje): ?>
-                <p><?= htmlspecialchars($mensaje) ?></p>
+            <?php if ($message): ?>
+                <p><?= htmlspecialchars($message) ?></p>
             <?php endif; ?>
             <form method="post" action="#">
                 <div class="row gtr-50">
