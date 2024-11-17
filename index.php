@@ -1,3 +1,11 @@
+<?php
+    // Configuración de la conexión
+    $host = "autorack.proxy.rlwy.net"; // Cambiar por el host proporcionado por Railway
+    $port = "40315"; // Puerto por defecto de PostgreSQL
+    $dbname = "railway"; // Nombre de la base de datos
+    $user = "postgres"; // Usuario de la base de datos
+    $password = "vzkFAnZtJDAaHBDtQgzLcNNFdoAWWvtC"; // Contraseña del usuario
+    ?>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -51,42 +59,75 @@ potenciar el crecimiento de las empresas.</p>
 							<p>Estamos esperando tu mensaje</p>
 						</header>
 						<div class="row">
-							<section class="col-6 col-12-narrower">
-								<form method="post" action="#">
-									<div class="row gtr-50">
-										<div class="col-6 col-12-mobile">
-											<input name="name" placeholder="Name" type="text" />
-										</div>
-										<div class="col-6 col-12-mobile">
-											<input name="email" placeholder="Email" type="text" />
-										</div>
-										<div class="col-12">
-											<textarea name="message" placeholder="Message"></textarea>
-										</div>
-										<div class="col-12">
-											<ul class="actions">
-												<li><input type="submit" value="Send Message" /></li>
-												<li><input type="reset" value="Clear form" /></li>
-											</ul>
-										</div>
-									</div>
-								</form>
-							</section>
-							<section class="col-6 col-12-narrower">
-								<div class="row gtr-0">
-									<ul class="divided icons col-6 col-12-mobile">
-										<li class="icon brands fa-twitter"><a href="#"><span class="extra">twitter.com/</span>untitled</a></li>
-										<li class="icon brands fa-facebook-f"><a href="#"><span class="extra">facebook.com/</span>untitled</a></li>
-										<li class="icon brands fa-dribbble"><a href="#"><span class="extra">dribbble.com/</span>untitled</a></li>
-									</ul>
-									<ul class="divided icons col-6 col-12-mobile">
-										<li class="icon brands fa-instagram"><a href="#"><span class="extra">instagram.com/</span>untitled</a></li>
-										<li class="icon brands fa-youtube"><a href="#"><span class="extra">youtube.com/</span>untitled</a></li>
-										<li class="icon brands fa-pinterest"><a href="#"><span class="extra">pinterest.com/</span>untitled</a></li>
-									</ul>
-								</div>
-							</section>
-						</div>
+        <!-- Formulario -->
+        <section class="col-6 col-12-narrower">
+            <h2>Gestión de registros</h2>
+            <?php if ($mensaje): ?>
+                <p><?= htmlspecialchars($mensaje) ?></p>
+            <?php endif; ?>
+            <form method="post" action="#">
+                <div class="row gtr-50">
+                    <input type="hidden" name="id" value="" id="record-id">
+                    <div class="col-6 col-12-mobile">
+                        <input name="name" placeholder="Name" type="text" id="name" required />
+                    </div>
+                    <div class="col-6 col-12-mobile">
+                        <input name="email" placeholder="Email" type="email" id="email" required />
+                    </div>
+                    <div class="col-12">
+                        <textarea name="message" placeholder="Message" id="message" required></textarea>
+                    </div>
+                    <div class="col-12">
+                        <ul class="actions">
+                            <li>
+                                <button type="submit" name="action" value="add">Agregar</button>
+                            </li>
+                            <li>
+                                <button type="submit" name="action" value="edit">Editar</button>
+                            </li>
+                            <li>
+                                <button type="submit" name="action" value="delete">Eliminar</button>
+                            </li>
+                            <li>
+                                <button type="reset" onclick="resetForm()">Limpiar</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <!-- Tabla de Registros -->
+        <section class="col-12">
+            <h2>Registros Existentes</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Mensaje</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($registros as $registro): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($registro['id']) ?></td>
+                            <td><?= htmlspecialchars($registro['name']) ?></td>
+                            <td><?= htmlspecialchars($registro['email']) ?></td>
+                            <td><?= htmlspecialchars($registro['message']) ?></td>
+                            <td>
+                                <button onclick="fillForm(<?= htmlspecialchars(json_encode($registro)) ?>)">Seleccionar</button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+   
 					</div>
 					<div id="copyright" class="container">
 						<ul class="menu">
@@ -97,48 +138,26 @@ potenciar el crecimiento de las empresas.</p>
 
 		</div>
 
-		<?php
-    // Configuración de la conexión
-    $host = "autorack.proxy.rlwy.net"; // Cambiar por el host proporcionado por Railway
-    $port = "40315"; // Puerto por defecto de PostgreSQL
-    $dbname = "railway"; // Nombre de la base de datos
-    $user = "postgres"; // Usuario de la base de datos
-    $password = "vzkFAnZtJDAaHBDtQgzLcNNFdoAWWvtC"; // Contraseña del usuario
-
-    // Construir la cadena de conexión
-    $conn_string = "host=$host port=$port dbname=$dbname user=$user password=$password";
-
-    try {
-        // Conectar a la base de datos
-        $dbconn = pg_connect($conn_string);
-        
-        if (!$dbconn) {
-            throw new Exception("Error al conectar con la base de datos.");
-        }
-        
-        echo "<p>Conexión exitosa a la base de datos PostgreSQL en Railway.</p>";
-
-        // Consulta de prueba
-        $result = pg_query($dbconn, "SELECT NOW() AS current_time");
-        if (!$result) {
-            throw new Exception("Error al ejecutar la consulta.");
-        }
-
-        // Mostrar resultados
-        echo "<ul>";
-        while ($row = pg_fetch_assoc($result)) {
-            echo "<li>Hora actual en el servidor: " . htmlspecialchars($row['current_time']) . "</li>";
-        }
-        echo "</ul>";
-
-        // Cerrar la conexión
-        pg_close($dbconn);
-    } catch (Exception $e) {
-        echo "<p style='color:red;'>Excepción capturada: " . htmlspecialchars($e->getMessage()) . "</p>";
-    }
-    ?>
+	
 
 		<!-- Scripts -->
+		<script>
+        // Llenar el formulario para editar o eliminar
+        function fillForm(registro) {
+            document.getElementById('record-id').value = registro.id;
+            document.getElementById('name').value = registro.name;
+            document.getElementById('email').value = registro.email;
+            document.getElementById('message').value = registro.message;
+        }
+
+        // Resetear el formulario
+        function resetForm() {
+            document.getElementById('record-id').value = '';
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('message').value = '';
+        }
+    </script>
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/jquery.dropotron.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>
