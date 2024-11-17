@@ -97,6 +97,47 @@ potenciar el crecimiento de las empresas.</p>
 
 		</div>
 
+		<?php
+    // Configuración de la conexión
+    $host = "tuservidor.railway.app"; // Cambiar por el host proporcionado por Railway
+    $port = "5432"; // Puerto por defecto de PostgreSQL
+    $dbname = "tu_basedatos"; // Nombre de la base de datos
+    $user = "tu_usuario"; // Usuario de la base de datos
+    $password = "tu_contraseña"; // Contraseña del usuario
+
+    // Construir la cadena de conexión
+    $conn_string = "host=$host port=$port dbname=$dbname user=$user password=$password";
+
+    try {
+        // Conectar a la base de datos
+        $dbconn = pg_connect($conn_string);
+        
+        if (!$dbconn) {
+            throw new Exception("Error al conectar con la base de datos.");
+        }
+        
+        echo "<p>Conexión exitosa a la base de datos PostgreSQL en Railway.</p>";
+
+        // Consulta de prueba
+        $result = pg_query($dbconn, "SELECT NOW() AS current_time");
+        if (!$result) {
+            throw new Exception("Error al ejecutar la consulta.");
+        }
+
+        // Mostrar resultados
+        echo "<ul>";
+        while ($row = pg_fetch_assoc($result)) {
+            echo "<li>Hora actual en el servidor: " . htmlspecialchars($row['current_time']) . "</li>";
+        }
+        echo "</ul>";
+
+        // Cerrar la conexión
+        pg_close($dbconn);
+    } catch (Exception $e) {
+        echo "<p style='color:red;'>Excepción capturada: " . htmlspecialchars($e->getMessage()) . "</p>";
+    }
+    ?>
+
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/jquery.dropotron.min.js"></script>
