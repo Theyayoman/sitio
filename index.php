@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 							<!-- Nav -->
 							<nav id="nav">
 								<ul>
-								<li><a href="index.html">Inicio</a></li>
+								<li><a href="index.php">Inicio</a></li>
 									<li><a href="admin.php">Admin</a></li>
 									<li class="break"><a href="fina.html">Gestión Financiera</a></li>
 									<li><a href="vent.html">Ventas y Marketing</a></li>

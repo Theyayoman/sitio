@@ -73,7 +73,7 @@ while ($row = pg_fetch_assoc($result)) {
 							<!-- Nav -->
 							<nav id="nav">
 								<ul>
-								<li><a href="index.html">Inicio</a></li>
+								<li><a href="index.php">Inicio</a></li>
 									<li><a href="admin.php">Admin</a></li>
 									<li class="break"><a href="fina.html">Gestión Financiera</a></li>
 									<li><a href="vent.html">Ventas y Marketing</a></li>
@@ -87,45 +87,12 @@ while ($row = pg_fetch_assoc($result)) {
 								</h2>
 							</header>
 							<p>Checa las nuevas citas registradas.</p>
-
 						</section>
-        <!-- Formulario -->
-        <section class="col-6 col-12-narrower">
-            <h2>Gestión de registros</h2>
-            <form method="post" action="#">
-                <div class="row gtr-50">
-                    <input type="hidden" name="id" value="" id="record-id">
-                    <div class="col-6 col-12-mobile">
-                        <input name="name" placeholder="Name" type="text" id="name" required />
-                    </div>
-                    <div class="col-6 col-12-mobile">
-                        <input name="email" placeholder="Email" type="email" id="email" required />
-                    </div>
-                    <div class="col-12">
-                        <textarea name="message" placeholder="Message" id="message" required></textarea>
-                    </div>
-                    <div class="col-12">
-                        <ul class="actions">
-                            <li>
-                                <button type="submit" name="action" value="add">Agregar</button>
-                            </li>
-							<li>
-                                <button type="submit" name="action" value="edit">Editar</button>
-                            </li>
-                            <li>
-                                <button type="submit" name="action" value="delete">Eliminar</button>
-                            </li>
-                            <li>
-                                <button type="reset" onclick="resetForm()">Limpiar</button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </form>
-        </section>
-
-        <!-- Tabla de Registros -->
-        <section class="col-12">
+						<div id="footer-wrapper">
+					<div id="footer" class="container">
+						<header class="major">
+							 <!-- Tabla de Registros -->
+							 <section class="col-12">
             <h2>Registros Existentes</h2>
             <table>
                 <thead>
@@ -152,6 +119,11 @@ while ($row = pg_fetch_assoc($result)) {
                 </tbody>
             </table>
         </section>
+						</header>
+						<div class="row">
+       
+
+       
     </div>
 
    
