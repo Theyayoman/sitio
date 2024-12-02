@@ -75,8 +75,8 @@ while ($row = pg_fetch_assoc($result)) {
 								<ul>
 								<li><a href="index.html">Inicio</a></li>
 									<li><a href="admin.php">Admin</a></li>
-									<li><a href="admin.php"> </a></li>
-									<li><a href="admin.php"> </a></li>
+									<li class="break"><a href="fina.html">Gestión Financiera</a></li>
+									<li><a href="vent.html">Ventas y Marketing</a></li>
 								</ul>
 							</nav>
 					<!-- Hero -->
