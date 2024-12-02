@@ -88,11 +88,17 @@ while ($row = pg_fetch_assoc($result)) {
 							</header>
 							<p>Checa las nuevas citas registradas.</p>
 						</section>
-						<div id="footer-wrapper">
+					
+						<!-- Footer -->
+				<div id="footer-wrapper">
 					<div id="footer" class="container">
 						<header class="major">
-							 <!-- Tabla de Registros -->
-							 <section class="col-12">
+							<h2>Escribemos para adquirir Innovatech</h2>
+							<p>Estamos esperando tu mensaje</p>
+						</header>
+						<div class="row">
+        <!-- Tabla de Registros -->
+		<section class="col-12">
             <h2>Registros Existentes</h2>
             <table>
                 <thead>
@@ -118,15 +124,13 @@ while ($row = pg_fetch_assoc($result)) {
                     <?php endforeach; ?>
                 </tbody>
             </table>
-        </section>
-						</header>
-						<div class="row">
-       
+        		</section>
 
-       
+        
     </div>
 
    
+					</div>
 					</div>
 					<div id="copyright" class="container">
 						<ul class="menu">
