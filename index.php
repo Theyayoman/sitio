@@ -129,12 +129,6 @@ potenciar el crecimiento de las empresas.</p>
                                 <button type="submit" name="action" value="add">Agregar</button>
                             </li>
                             <li>
-                                <button type="submit" name="action" value="edit">Editar</button>
-                            </li>
-                            <li>
-                                <button type="submit" name="action" value="delete">Eliminar</button>
-                            </li>
-                            <li>
                                 <button type="reset" onclick="resetForm()">Limpiar</button>
                             </li>
                         </ul>
@@ -143,34 +137,7 @@ potenciar el crecimiento de las empresas.</p>
             </form>
         </section>
 
-        <!-- Tabla de Registros -->
-        <section class="col-12">
-            <h2>Registros Existentes</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Email</th>
-                        <th>Mensaje</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($registros as $registro): ?>
-                        <tr>
-                            <td><?= htmlspecialchars($registro['id']) ?></td>
-                            <td><?= htmlspecialchars($registro['name']) ?></td>
-                            <td><?= htmlspecialchars($registro['email']) ?></td>
-                            <td><?= htmlspecialchars($registro['message']) ?></td>
-                            <td>
-                                <button onclick="fillForm(<?= htmlspecialchars(json_encode($registro)) ?>)">Seleccionar</button>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </section>
+        
     </div>
 
    
@@ -188,13 +155,7 @@ potenciar el crecimiento de las empresas.</p>
 
 		<!-- Scripts -->
 		<script>
-        // Llenar el formulario para editar o eliminar
-        function fillForm(registro) {
-            document.getElementById('record-id').value = registro.id;
-            document.getElementById('name').value = registro.name;
-            document.getElementById('email').value = registro.email;
-            document.getElementById('message').value = registro.message;
-        }
+       
 
         // Resetear el formulario
         function resetForm() {
