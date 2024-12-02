@@ -42,6 +42,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $mensaje = "Error: " . $e->getMessage();
     }
 }
+
+// Consultar todos los registros para mostrar
+$registros = [];
+$query = "SELECT * FROM cita ORDER BY id";
+$result = pg_query($dbconn, $query);
+while ($row = pg_fetch_assoc($result)) {
+    $registros[] = $row;
+}
+
 	?>
 <!DOCTYPE HTML>
 <html>
@@ -75,25 +84,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 								<br />
 								</h2>
 							</header>
-							<p>es una plataforma integral de gestión empresarial 
-diseñada para optimizar los procesos internos, mejorar la toma de decisiones y 
-potenciar el crecimiento de las empresas.</p>
-							<ul class="actions">
-								<li><a href="#" class="button">Aquirir Innovatech</a></li> 
-							</ul>
+							<p>Checa las nuevas citas registradas.</p>
+
 						</section>
-						<br><br><br><br><br><br><br><br>
-						
-						
-				</div>
-			<!-- Footer -->
-				<div id="footer-wrapper">
-					<div id="footer" class="container">
-						<header class="major">
-							<h2>Escribemos para adquirir Innovatech</h2>
-							<p>Estamos esperando tu mensaje</p>
-						</header>
-						<div class="row">
         <!-- Formulario -->
         <section class="col-6 col-12-narrower">
             <h2>Gestión de registros</h2>
@@ -114,6 +107,12 @@ potenciar el crecimiento de las empresas.</p>
                             <li>
                                 <button type="submit" name="action" value="add">Agregar</button>
                             </li>
+							<li>
+                                <button type="submit" name="action" value="edit">Editar</button>
+                            </li>
+                            <li>
+                                <button type="submit" name="action" value="delete">Eliminar</button>
+                            </li>
                             <li>
                                 <button type="reset" onclick="resetForm()">Limpiar</button>
                             </li>
@@ -123,7 +122,34 @@ potenciar el crecimiento de las empresas.</p>
             </form>
         </section>
 
-        
+        <!-- Tabla de Registros -->
+        <section class="col-12">
+            <h2>Registros Existentes</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Mensaje</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($registros as $registro): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($registro['id']) ?></td>
+                            <td><?= htmlspecialchars($registro['name']) ?></td>
+                            <td><?= htmlspecialchars($registro['email']) ?></td>
+                            <td><?= htmlspecialchars($registro['message']) ?></td>
+                            <td>
+                                <button onclick="fillForm(<?= htmlspecialchars(json_encode($registro)) ?>)">Seleccionar</button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </section>
     </div>
 
    
@@ -141,7 +167,13 @@ potenciar el crecimiento de las empresas.</p>
 
 		<!-- Scripts -->
 		<script>
-       
+        // Llenar el formulario para editar o eliminar
+        function fillForm(registro) {
+            document.getElementById('record-id').value = registro.id;
+            document.getElementById('name').value = registro.name;
+            document.getElementById('email').value = registro.email;
+            document.getElementById('message').value = registro.message;
+        }
 
         // Resetear el formulario
         function resetForm() {
@@ -150,6 +182,8 @@ potenciar el crecimiento de las empresas.</p>
             document.getElementById('email').value = '';
             document.getElementById('message').value = '';
         }
+
+	
     </script>
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/jquery.dropotron.min.js"></script>
