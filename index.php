@@ -66,6 +66,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 								<ul>
 								<li><a href="index.html">Inicio</a></li>
 									<li><a href="admin.php">Admin</a></li>
+									<li><a href="admin.php"> </a></li>
+									<li><a href="admin.php"> </a></li>
 								</ul>
 							</nav>
 					<!-- Hero -->
