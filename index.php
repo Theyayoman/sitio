@@ -74,9 +74,7 @@ while ($row = pg_fetch_assoc($result)) {
 							<nav id="nav">
 								<ul>
 								<li><a href="index.html">Inicio</a></li>
-									<li><a href="recu.html">Recursos Humanos</a></li>
-									<li class="break"><a href="fina.html">Gestión Financiera</a></li>
-									<li><a href="vent.html">Ventas y Marketing</a></li>
+									<li><a href="admin.php">Admin</a></li>
 								</ul>
 							</nav>
 					<!-- Hero -->
@@ -108,9 +106,6 @@ potenciar el crecimiento de las empresas.</p>
         <!-- Formulario -->
         <section class="col-6 col-12-narrower">
             <h2>Gestión de registros</h2>
-            <?php if ($message): ?>
-                <p><?= htmlspecialchars($message) ?></p>
-            <?php endif; ?>
             <form method="post" action="#">
                 <div class="row gtr-50">
                     <input type="hidden" name="id" value="" id="record-id">
